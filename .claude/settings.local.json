@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd:*)",
+      "Bash(cd \"C:/Users/vicen/OneDrive/Desktop/agethomer\" && npx tsc --noEmit 2>&1)",
+      "Bash(cd /c/Users/vicen/OneDrive/Desktop/agethomer && npx tsx src/server.ts 2>&1)",
+      "Bash(sleep 2 && curl -s http://localhost:3000/api/status 2>&1)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "Bash(cd /c/Users/vicen/OneDrive/Desktop/agethomer && npx tsc 2>&1)",
+      "Bash(taskkill:*)",
+      "Bash(sleep 2:*)",
+      "Bash(curl:*)",
+      "WebFetch(domain:cdn.jsdelivr.net)"
+    ]
+  }
+}

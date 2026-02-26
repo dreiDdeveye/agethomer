@@ -1,0 +1,215 @@
+/* ============================
+   RIGHT PANEL — Agent Info
+   ============================ */
+
+#panel {
+  width: 280px;
+  background: var(--bg-primary);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex-shrink: 0;
+  transition: width 0.2s ease, opacity 0.2s ease;
+}
+
+#panel:not(.panel-open) {
+  width: 0;
+  overflow: hidden;
+  border-left: none;
+  opacity: 0;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.panel-close-btn {
+  width: 26px;
+  height: 26px;
+  background: none;
+  border: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+}
+.panel-close-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+/* Sections */
+.panel-section {
+  padding: 12px 14px;
+}
+.panel-section + .panel-section {
+  border-top: 1px solid var(--border);
+}
+
+.panel-section-title {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+}
+
+/* Cards */
+.panel-card {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+}
+
+/* Status card */
+.status-card .status-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.status-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--springfield-green);
+}
+
+.status-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.meta-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.meta-label {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+}
+
+.meta-value {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* Active tool */
+.active-tool-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.82rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.tool-pulse {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: tool-pulse-anim 1.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes tool-pulse-anim {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--accent-glow); }
+  50% { opacity: 0.6; box-shadow: 0 0 0 6px transparent; }
+}
+
+.no-tool-card {
+  background: none;
+  border: 1px dashed var(--border);
+}
+
+.no-tool-text {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+}
+
+/* Tool log */
+.tool-log-card {
+  padding: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.tool-log-empty {
+  padding: 8px;
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+  text-align: center;
+}
+
+#tool-log-entries:not(:empty) + .tool-log-empty {
+  display: none;
+}
+
+.tool-entry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: var(--radius-sm);
+  animation: msg-in 0.2s ease-out;
+}
+.tool-entry:hover {
+  background: var(--bg-hover);
+}
+
+.tool-icon {
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.tool-name {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.tool-status {
+  margin-left: auto;
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: 20px;
+}
+.tool-status.success {
+  color: var(--springfield-green);
+  background: var(--springfield-green-dim);
+}
+.tool-status.error {
+  color: var(--bart-red);
+  background: var(--bart-red-dim);
+}
+.tool-status.pending {
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+
+/* Panel scrollbar */
+#panel::-webkit-scrollbar { width: 4px; }
+#panel::-webkit-scrollbar-track { background: transparent; }
+#panel::-webkit-scrollbar-thumb { background: var(--bg-active); border-radius: 2px; }
+.tool-log-card::-webkit-scrollbar { width: 3px; }
+.tool-log-card::-webkit-scrollbar-thumb { background: var(--bg-active); border-radius: 2px; }

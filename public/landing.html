@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homer Agent — Your Favorite Springfield Safety Inspector Is Now an AI</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="landing.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Bangers&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@latest/font/lucide.min.css">
+</head>
+<body class="landing-page">
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">
+        <div class="nav-brand-icon"><i class="icon-bot"></i></div>
+        <span class="nav-brand-text">Homer Agent</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#how-it-works" class="nav-link">How It Works</a>
+        <a href="#preview" class="nav-link">Preview</a>
+        <a href="#" class="nav-cta" id="nav-cta">Enter Chat <i class="icon-arrow-right" style="font-size:0.75rem"></i></a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <!-- Springfield sky -->
+    <div class="sky-stars" aria-hidden="true"></div>
+    <div class="cloud cloud-1" aria-hidden="true"></div>
+    <div class="cloud cloud-2" aria-hidden="true"></div>
+    <div class="cloud cloud-3" aria-hidden="true"></div>
+
+    <!-- Floating particles (CSS shapes, no emojis) -->
+    <div class="particles" aria-hidden="true">
+      <span class="particle particle-circle" style="left:5%;--p-delay:0s;--p-dur:18s;--p-opacity:0.06"></span>
+      <span class="particle particle-ring" style="left:14%;--p-delay:4s;--p-dur:22s;--p-opacity:0.04"></span>
+      <span class="particle particle-circle" style="left:22%;--p-delay:1s;--p-dur:20s;--p-opacity:0.05"></span>
+      <span class="particle particle-diamond" style="left:33%;--p-delay:6s;--p-dur:25s;--p-opacity:0.04"></span>
+      <span class="particle particle-ring" style="left:42%;--p-delay:2s;--p-dur:19s;--p-opacity:0.06"></span>
+      <span class="particle particle-circle" style="left:55%;--p-delay:8s;--p-dur:23s;--p-opacity:0.05"></span>
+      <span class="particle particle-diamond" style="left:64%;--p-delay:0.5s;--p-dur:21s;--p-opacity:0.04"></span>
+      <span class="particle particle-ring" style="left:73%;--p-delay:5s;--p-dur:18s;--p-opacity:0.06"></span>
+      <span class="particle particle-circle" style="left:82%;--p-delay:3s;--p-dur:24s;--p-opacity:0.05"></span>
+      <span class="particle particle-diamond" style="left:91%;--p-delay:7s;--p-dur:20s;--p-opacity:0.04"></span>
+    </div>
+
+    <div class="hero-glow" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Powered by Ollama (Local AI)
+      </div>
+
+      <h1 class="hero-heading">
+        Your Favorite Springfield<br>
+        Safety Inspector<br>
+        <span class="accent">Is Now an AI Agent</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        The donut-loving, Duff-drinking, nuclear safety inspector you know and love &mdash;
+        now powered by AI with real tools, persistent memory, and 128K context.
+      </p>
+
+      <div class="hero-cta-group">
+        <a href="#" class="cta-primary glow-pulse" id="hero-cta">
+          <i class="icon-message-circle"></i> Talk to Homer
+        </a>
+        <a href="#features" class="cta-secondary">See Capabilities</a>
+      </div>
+
+      <!-- Terminal preview -->
+      <div class="hero-terminal" id="hero-terminal">
+        <div class="terminal-bar">
+          <span class="terminal-dot red"></span>
+          <span class="terminal-dot yellow"></span>
+          <span class="terminal-dot green"></span>
+          <span class="terminal-title">homer-agent</span>
+        </div>
+        <div class="terminal-body">
+          <div class="terminal-line" id="term-line-1">
+            <span class="user-label">You</span>
+            <span>What's 847 divided by 3?</span>
+          </div>
+          <div class="terminal-line" id="term-line-2">
+            <span class="tool-chip"><i class="icon-calculator" style="font-size:0.7rem"></i> Calculator &middot; Running...</span>
+          </div>
+          <div class="terminal-line" id="term-line-3">
+            <span class="homer-label">Homer</span>
+            <span id="typing-target"></span><span class="terminal-cursor" id="terminal-cursor"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Springfield horizon glow & skyline silhouette -->
+    <div class="sky-horizon-glow" aria-hidden="true"></div>
+    <svg class="skyline-svg" viewBox="0 0 1440 250" preserveAspectRatio="none" aria-hidden="true">
+      <path d="
+        M0 250 V195
+        H20 V180 H40 V195
+        H70 V188 H90 V195
+        H115 V168 H135 V195
+        H165 V182 H185 V195
+        H215 V155 H228 V140 H242 V155 H255 V195
+        H290 V182 H310 V195
+        H345 V172 H360 V158 H375 V172 H395 V195
+        H430 L455,130 L445,60 L528,60 L518,130 L543,195
+        H570 L595,130 L585,60 L668,60 L658,130 L683,195
+        H710 V178 H730 V195
+        H760 V165 H780 V195
+        H810 V155 H825 V118 L838,50 L851,118 H851 V155 H865 V195
+        H900 V182 H920 V195
+        H950 V168 H965 V152 H980 V168 H995 V195
+        H1030 V188 H1050 V195
+        H1080 V178 H1100 V195
+        H1130 V172 H1148 V160 H1165 V172 H1180 V195
+        H1215 V186 H1235 V195
+        H1270 V182 H1295 V195
+        H1335 V190 H1360 V195
+        H1400 V188 H1425 V195
+        H1440 V250 Z
+      " fill="#0a0a0f"/>
+    </svg>
+  </section>
+
+  <!-- STATS BAR -->
+  <section class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-pill">
+        <span class="stat-dot online"></span>
+        <span>Agent Online</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-pill">
+        <i class="icon-brain stat-icon-lu"></i>
+        <span>Llama 3.2</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-pill">
+        <i class="icon-wrench stat-icon-lu"></i>
+        <span><strong class="counter" data-target="6">0</strong> Tools</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-pill">
+        <i class="icon-sliders-horizontal stat-icon-lu"></i>
+        <span><strong class="counter" data-target="3">0</strong> Modes</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-pill">
+        <i class="icon-lightbulb stat-icon-lu"></i>
+        <span>128K Context</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section" id="how-it-works">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title fade-in">How It Works</h2>
+        <p class="section-subtitle fade-in">Three steps to talk to the smartest guy at Sector 7-G.</p>
+      </div>
+
+      <div class="steps-row">
+        <div class="step-card fade-in">
+          <div class="step-number">1</div>
+          <div class="step-icon-wrap"><i class="icon-message-square"></i></div>
+          <h3 class="step-title">Send a Message</h3>
+          <p class="step-desc">Type anything &mdash; ask a question, tell him a joke, or give him a math problem. Homer responds in character, always.</p>
+        </div>
+        <div class="step-connector" aria-hidden="true">
+          <svg width="40" height="2"><line x1="0" y1="1" x2="40" y2="1" stroke="var(--border-active)" stroke-width="2" stroke-dasharray="6 4"/></svg>
+        </div>
+        <div class="step-card fade-in">
+          <div class="step-number">2</div>
+          <div class="step-icon-wrap"><i class="icon-cog"></i></div>
+          <h3 class="step-title">Homer Uses His Tools</h3>
+          <p class="step-desc">Need math? He runs the calculator. Want a reminder? He sets one. Watch the tools fire in real-time with live status.</p>
+        </div>
+        <div class="step-connector" aria-hidden="true">
+          <svg width="40" height="2"><line x1="0" y1="1" x2="40" y2="1" stroke="var(--border-active)" stroke-width="2" stroke-dasharray="6 4"/></svg>
+        </div>
+        <div class="step-card fade-in">
+          <div class="step-number">3</div>
+          <div class="step-icon-wrap"><i class="icon-database"></i></div>
+          <h3 class="step-title">He Remembers You</h3>
+          <p class="step-desc">Tell Homer your name, your favorite beer, or anything else. He saves it to memory and recalls it in future conversations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features-section" id="features">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title fade-in">What Homer Can Do</h2>
+        <p class="section-subtitle fade-in">A full AI agent with real tools &mdash; not just a chatbot with a funny voice.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card fade-in" style="--card-accent: var(--homer-blue)">
+          <div class="feature-icon-wrap"><i class="icon-hard-drive"></i></div>
+          <h3 class="feature-title">Long-Term Memory</h3>
+          <p class="feature-desc">Homer remembers what you tell him &mdash; across conversations. Save important facts, recall them later, or list everything he knows.</p>
+          <div class="feature-mini">
+            <div><span class="mini-label">tools:</span> <span class="mini-value">memory_save</span> &middot; <span class="mini-value">memory_recall</span> &middot; <span class="mini-value">memory_list</span></div>
+          </div>
+        </div>
+
+        <div class="feature-card fade-in" style="--card-accent: var(--springfield-green)">
+          <div class="feature-icon-wrap"><i class="icon-wrench"></i></div>
+          <h3 class="feature-title">6 Built-In Tools</h3>
+          <p class="feature-desc">From a safe math calculator to a persistent reminder system, Homer has real tools he uses autonomously to get things done.</p>
+          <div class="feature-mini">
+            <div><span class="mini-label">tools:</span> <span class="mini-value">calculator</span> &middot; <span class="mini-green">reminder_set</span> &middot; <span class="mini-green">reminder_list</span></div>
+          </div>
+        </div>
+
+        <div class="feature-card fade-in" style="--card-accent: var(--accent)">
+          <div class="feature-icon-wrap"><i class="icon-brain"></i></div>
+          <h3 class="feature-title">Thinks Out Loud</h3>
+          <p class="feature-desc">Homer has a massive 128K token context window. He can remember the entire conversation history without breaking a sweat (or a beer).</p>
+          <div class="feature-mini">
+            <div><span class="mini-label">context:</span> <span class="mini-value">128K tokens</span> &middot; <span class="mini-label">stream:</span> <span class="mini-green">live</span></div>
+          </div>
+        </div>
+
+        <div class="feature-card fade-in" style="--card-accent: var(--donut-pink)">
+          <div class="feature-icon-wrap"><i class="icon-toggle-right"></i></div>
+          <h3 class="feature-title">3 Personality Modes</h3>
+          <p class="feature-desc">Switch between Classic Homer, Serious mode for real tasks, or Dev mode with debug output. Same brain, different vibes.</p>
+          <div class="feature-mini">
+            <div><span class="mini-value">classic</span> &middot; <span class="mini-value">serious</span> &middot; <span class="mini-value">dev</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTES (Social Proof) -->
+  <section class="quotes-section">
+    <div class="section-container">
+      <div class="quotes-grid">
+        <div class="quote-card fade-in">
+          <div class="quote-icon"><i class="icon-quote"></i></div>
+          <div class="quote-text">I asked him to remember my birthday and he actually did. Better than my real dad.</div>
+          <div class="quote-author">
+            <div class="quote-avatar"><i class="icon-user"></i></div>
+            <div>
+              <div class="quote-name">Barney Gumble</div>
+              <div class="quote-role">Moe's Tavern Regular</div>
+            </div>
+          </div>
+        </div>
+        <div class="quote-card fade-in">
+          <div class="quote-icon"><i class="icon-quote"></i></div>
+          <div class="quote-text">The 128K context window is fascinating. He remembers everything from the start of our conversation!</div>
+          <div class="quote-author">
+            <div class="quote-avatar"><i class="icon-flask-conical"></i></div>
+            <div>
+              <div class="quote-name">Prof. Frink</div>
+              <div class="quote-role">Springfield University</div>
+            </div>
+          </div>
+        </div>
+        <div class="quote-card fade-in">
+          <div class="quote-icon"><i class="icon-quote"></i></div>
+          <div class="quote-text">He calculated my tax deductions faster than my accountant. D'oh-lightful!</div>
+          <div class="quote-author">
+            <div class="quote-avatar"><i class="icon-landmark"></i></div>
+            <div>
+              <div class="quote-name">C.M. Burns</div>
+              <div class="quote-role">Plant Owner, Burns Industries</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD PREVIEW -->
+  <section class="preview-section" id="preview">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title fade-in">The Full Dashboard Experience</h2>
+        <p class="section-subtitle fade-in">A dark, polished interface inspired by modern AI tools &mdash; with Simpsons flair.</p>
+      </div>
+
+      <div class="preview-wrapper fade-in">
+        <div class="preview-frame">
+          <div class="mock-dashboard">
+            <!-- Mock sidebar -->
+            <div class="mock-sidebar">
+              <div class="mock-sidebar-brand">
+                <i class="icon-bot" style="font-size:0.85rem"></i>
+                <span>Homer Agent</span>
+              </div>
+              <div class="mock-conv active"><i class="icon-message-square" style="font-size:0.55rem"></i> What's the meaning of...</div>
+              <div class="mock-conv"><i class="icon-message-square" style="font-size:0.55rem"></i> Help me with donuts</div>
+              <div class="mock-conv"><i class="icon-message-square" style="font-size:0.55rem"></i> Springfield trivia night</div>
+            </div>
+
+            <!-- Mock main -->
+            <div class="mock-main">
+              <div class="mock-topbar">
+                <span><i class="icon-bot" style="font-size:0.65rem"></i> Homer Simpson</span>
+                <span class="mock-topbar-badge">AI Agent</span>
+                <div class="mock-mode-toggle">
+                  <span class="mock-mode active">Classic</span>
+                  <span class="mock-mode">Serious</span>
+                  <span class="mock-mode">Dev</span>
+                </div>
+              </div>
+
+              <div class="mock-chat">
+                <div class="mock-msg mock-msg-user">
+                  <div class="mock-bubble">Hey Homer, what's 42 times 7?</div>
+                </div>
+                <div class="mock-msg mock-msg-homer">
+                  <div class="mock-avatar"><i class="icon-bot" style="font-size:0.6rem"></i></div>
+                  <div class="mock-msg-text">Mmmm... let me use my fancy calculator thingy... 42 times 7 is 294! See, Marge? I AM smart!</div>
+                </div>
+              </div>
+
+              <div class="mock-input">
+                <span>Message Homer...</span>
+                <span class="mock-send"><i class="icon-send" style="font-size:0.65rem"></i></span>
+              </div>
+            </div>
+
+            <!-- Mock panel -->
+            <div class="mock-panel">
+              <div class="mock-panel-title">Agent Info</div>
+              <div class="mock-panel-item">
+                <span class="mock-panel-dot"></span> Online
+              </div>
+              <div class="mock-panel-item">Model: opus-4.6</div>
+              <div class="mock-panel-item">Memory: 3 items</div>
+              <div class="mock-panel-title" style="margin-top:10px">Tool Activity</div>
+              <div class="mock-panel-item">
+                <i class="icon-calculator" style="font-size:0.6rem"></i> Calculator
+                <span class="mock-tool-badge">Done</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-annotations">
+          <div class="annotation">
+            <span class="annotation-dot" style="background:var(--homer-blue)"></span>
+            Conversation History
+          </div>
+          <div class="annotation">
+            <span class="annotation-dot" style="background:var(--accent)"></span>
+            3 Personality Modes
+          </div>
+          <div class="annotation">
+            <span class="annotation-dot" style="background:var(--springfield-green)"></span>
+            Live Tool Activity
+          </div>
+          <div class="annotation">
+            <span class="annotation-dot" style="background:var(--donut-pink)"></span>
+            Persistent Memory
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="final-cta-glow" aria-hidden="true"></div>
+    <div class="final-cta-content">
+      <h2 class="final-heading fade-in">Ready to Chat with Homer?</h2>
+      <p class="final-sub fade-in">He's been waiting at Moe's Tavern. Pull up a stool.</p>
+      <a href="#" class="cta-primary cta-large glow-pulse fade-in" id="final-cta"><i class="icon-message-circle"></i> Talk to Homer</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="landing-footer">
+    <div class="footer-inner">
+      <span>Homer Agent v1.0</span>
+      <span class="footer-sep">&middot;</span>
+      <span>Built with Ollama + Llama 3.2</span>
+      <span class="footer-sep">&middot;</span>
+      <span>&copy; 2026 Springfield Nuclear Power Plant</span>
+    </div>
+  </footer>
+
+  <!-- TRANSITION OVERLAY -->
+  <div class="transition-overlay" id="transition-overlay">
+    <div class="transition-spinner"><i class="icon-loader"></i></div>
+    <div class="transition-text">Waking up Homer...</div>
+    <div class="transition-bar"><div class="transition-bar-fill"></div></div>
+  </div>
+
+  <script src="landing.js"></script>
+</body>
+</html>
