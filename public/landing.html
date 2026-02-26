@@ -35,18 +35,18 @@
     <div class="cloud cloud-2" aria-hidden="true"></div>
     <div class="cloud cloud-3" aria-hidden="true"></div>
 
-    <!-- Floating particles (CSS shapes, no emojis) -->
-    <div class="particles" aria-hidden="true">
-      <span class="particle particle-circle" style="left:5%;--p-delay:0s;--p-dur:18s;--p-opacity:0.06"></span>
-      <span class="particle particle-ring" style="left:14%;--p-delay:4s;--p-dur:22s;--p-opacity:0.04"></span>
-      <span class="particle particle-circle" style="left:22%;--p-delay:1s;--p-dur:20s;--p-opacity:0.05"></span>
-      <span class="particle particle-diamond" style="left:33%;--p-delay:6s;--p-dur:25s;--p-opacity:0.04"></span>
-      <span class="particle particle-ring" style="left:42%;--p-delay:2s;--p-dur:19s;--p-opacity:0.06"></span>
-      <span class="particle particle-circle" style="left:55%;--p-delay:8s;--p-dur:23s;--p-opacity:0.05"></span>
-      <span class="particle particle-diamond" style="left:64%;--p-delay:0.5s;--p-dur:21s;--p-opacity:0.04"></span>
-      <span class="particle particle-ring" style="left:73%;--p-delay:5s;--p-dur:18s;--p-opacity:0.06"></span>
-      <span class="particle particle-circle" style="left:82%;--p-delay:3s;--p-dur:24s;--p-opacity:0.05"></span>
-      <span class="particle particle-diamond" style="left:91%;--p-delay:7s;--p-dur:20s;--p-opacity:0.04"></span>
+    <!-- Falling donut rain -->
+    <div class="donut-rain" aria-hidden="true">
+      <span class="donut-particle" style="left:5%;--d-delay:0s;--d-dur:12s;--d-size:18px"></span>
+      <span class="donut-particle" style="left:15%;--d-delay:3s;--d-dur:15s;--d-size:14px"></span>
+      <span class="donut-particle" style="left:25%;--d-delay:1.5s;--d-dur:13s;--d-size:20px"></span>
+      <span class="donut-particle" style="left:35%;--d-delay:5s;--d-dur:16s;--d-size:12px"></span>
+      <span class="donut-particle" style="left:45%;--d-delay:2s;--d-dur:14s;--d-size:16px"></span>
+      <span class="donut-particle" style="left:55%;--d-delay:7s;--d-dur:12s;--d-size:22px"></span>
+      <span class="donut-particle" style="left:65%;--d-delay:0.5s;--d-dur:17s;--d-size:14px"></span>
+      <span class="donut-particle" style="left:75%;--d-delay:4s;--d-dur:13s;--d-size:18px"></span>
+      <span class="donut-particle" style="left:85%;--d-delay:6s;--d-dur:15s;--d-size:16px"></span>
+      <span class="donut-particle" style="left:93%;--d-delay:2.5s;--d-dur:14s;--d-size:12px"></span>
     </div>
 
     <div class="hero-glow" aria-hidden="true"></div>
@@ -320,7 +320,7 @@
                 </div>
               </div>
 
-              <div class="mock-chat">
+              <div class="mock-chat" id="mock-chat">
                 <div class="mock-msg mock-msg-user">
                   <div class="mock-bubble">Hey Homer, what's 42 times 7?</div>
                 </div>
@@ -330,9 +330,9 @@
                 </div>
               </div>
 
-              <div class="mock-input">
-                <span>Message Homer...</span>
-                <span class="mock-send"><i class="icon-send" style="font-size:0.65rem"></i></span>
+              <div class="mock-input-live" id="mock-input-wrapper">
+                <input type="text" id="mock-input-field" class="mock-input-field" placeholder="Try messaging Homer..." maxlength="100" autocomplete="off">
+                <button id="mock-send-btn" class="mock-send-live"><i class="icon-send" style="font-size:0.65rem"></i></button>
               </div>
             </div>
 

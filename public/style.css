@@ -262,6 +262,13 @@ body {
   line-height: 1.65;
   word-wrap: break-word;
   white-space: pre-wrap;
+  background: rgba(26, 26, 38, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(253, 216, 53, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .message-user {
@@ -272,14 +279,17 @@ body {
 
 .bubble-user {
   max-width: 75%;
-  background: var(--homer-blue-dim);
-  border: 1px solid rgba(66, 165, 245, 0.2);
+  background: rgba(66, 165, 245, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(66, 165, 245, 0.18);
   color: var(--text-primary);
   border-radius: var(--radius-lg) var(--radius-lg) var(--radius-sm) var(--radius-lg);
   padding: 12px 16px;
   font-size: 0.92rem;
   line-height: 1.65;
   word-wrap: break-word;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 /* === THINKING BLOCK === */
@@ -462,6 +472,145 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--border-active);
+}
+
+/* === SVG HOMER AVATAR === */
+.homer-avatar {
+  position: relative;
+  overflow: hidden;
+}
+.homer-avatar svg {
+  width: 100%;
+  height: 100%;
+}
+.homer-avatar .avatar-expression {
+  display: none;
+}
+.homer-avatar .avatar-expression.active {
+  display: block;
+}
+
+/* === SOUND TOGGLE === */
+.sound-toggle {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border);
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  position: relative;
+}
+.sound-toggle:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: var(--border-active);
+}
+.sound-toggle.muted::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 20px;
+  background: var(--bart-red);
+  transform: rotate(45deg);
+  border-radius: 1px;
+}
+
+/* === LOADING SKELETON === */
+.skeleton-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.skeleton-container.hidden {
+  display: none;
+}
+.skeleton-msg {
+  display: flex;
+  gap: 12px;
+  animation: msg-in 0.3s ease-out;
+}
+.skeleton-msg-user {
+  justify-content: flex-end;
+}
+.skeleton-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent-dim);
+  flex-shrink: 0;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+.skeleton-bubble {
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.skeleton-bubble-homer {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  flex: 1;
+  max-width: 70%;
+}
+.skeleton-bubble-user {
+  background: var(--homer-blue-dim);
+  border: 1px solid rgba(66, 165, 245, 0.15);
+  width: 45%;
+}
+.skeleton-line {
+  height: 10px;
+  border-radius: 5px;
+  background: var(--bg-active);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+.skeleton-line:nth-child(1) { width: 85%; animation-delay: 0s; }
+.skeleton-line:nth-child(2) { width: 65%; animation-delay: 0.15s; }
+.skeleton-line:nth-child(3) { width: 45%; animation-delay: 0.3s; }
+.skeleton-donut {
+  text-align: center;
+  font-size: 2rem;
+  opacity: 0.3;
+  animation: skeleton-donut-bob 2s ease-in-out infinite;
+  margin: 8px 0;
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+@keyframes skeleton-donut-bob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-4px) rotate(10deg); }
+}
+
+/* === TYPING PERSONALITY === */
+.typing-phrase {
+  font-size: 0.82rem;
+  color: var(--text-tertiary);
+  font-style: italic;
+  transition: opacity 0.3s ease;
+}
+
+/* === SEND BUTTON LOADING === */
+#send-btn .send-icon { display: flex; }
+#send-btn .send-spinner { display: none; }
+#send-btn.loading .send-icon { display: none; }
+#send-btn.loading .send-spinner {
+  display: flex;
+  animation: donut-spin 0.8s linear infinite;
+}
+@keyframes donut-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 /* === RESPONSIVE === */

@@ -209,3 +209,88 @@ if (heroGlow) {
     }
   });
 }
+
+// ─── Interactive Dashboard Preview ──────────────────────
+
+const mockInput = document.getElementById("mock-input-field");
+const mockSendBtn = document.getElementById("mock-send-btn");
+const mockChat = document.getElementById("mock-chat");
+
+const homerResponses = [
+  "Mmm... that's a great question! Let me think about it while I eat this donut... *chomp* ...what were we talking about?",
+  "D'oh! I knew the answer to that once, but I think the beer washed it away.",
+  "Woo-hoo! You're talking to the smartest guy at the Springfield Nuclear Power Plant! ...okay, maybe second smartest. After the inanimate carbon rod.",
+  "Let me use my calculator thingy... *presses random buttons* ...the answer is donut! Wait, that can't be right.",
+  "Marge always says I should listen more carefully. What? Sorry, I was thinking about pork chops.",
+  "Ooh, that reminds me of the time I... actually, I forget. But it involved a monkey and a barrel of Duff!",
+  "As safety inspector of Sector 7-G, I can confidently say: I have no idea. But here's a fun fact — donuts have zero calories if nobody sees you eat them!",
+  "*scratches head* Hmm, that's above my pay grade. And my pay grade is pretty low. Like, really low.",
+];
+
+function addMockMessage(text, isUser) {
+  if (!mockChat) return;
+  const msg = document.createElement("div");
+  msg.className = `mock-msg ${isUser ? "mock-msg-user" : "mock-msg-homer"}`;
+
+  if (isUser) {
+    msg.innerHTML = `<div class="mock-bubble">${text}</div>`;
+  } else {
+    msg.innerHTML = `
+      <div class="mock-avatar"><i class="icon-bot" style="font-size:0.6rem"></i></div>
+      <div class="mock-msg-text">${text}</div>
+    `;
+  }
+
+  msg.style.animation = "msg-in 0.3s ease-out";
+  mockChat.appendChild(msg);
+  mockChat.scrollTop = mockChat.scrollHeight;
+}
+
+function showMockTyping() {
+  const typing = document.createElement("div");
+  typing.className = "mock-msg mock-msg-homer";
+  typing.id = "mock-typing-indicator";
+  typing.innerHTML = `
+    <div class="mock-avatar"><i class="icon-bot" style="font-size:0.6rem"></i></div>
+    <div class="mock-typing">
+      <div class="mock-typing-dots"><span></span><span></span><span></span></div>
+      <span>Homer is thinking...</span>
+    </div>
+  `;
+  mockChat.appendChild(typing);
+  mockChat.scrollTop = mockChat.scrollHeight;
+}
+
+function hideMockTyping() {
+  const typing = document.getElementById("mock-typing-indicator");
+  if (typing) typing.remove();
+}
+
+function handleMockSend() {
+  if (!mockInput) return;
+  const text = mockInput.value.trim();
+  if (!text) return;
+
+  mockInput.value = "";
+  addMockMessage(text, true);
+  showMockTyping();
+
+  const delay = 1200 + Math.random() * 1500;
+  setTimeout(() => {
+    hideMockTyping();
+    const response = homerResponses[Math.floor(Math.random() * homerResponses.length)];
+    addMockMessage(response, false);
+  }, delay);
+}
+
+if (mockSendBtn) {
+  mockSendBtn.addEventListener("click", handleMockSend);
+}
+if (mockInput) {
+  mockInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleMockSend();
+    }
+  });
+}

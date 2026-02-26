@@ -507,50 +507,47 @@
   50% { opacity: 0; }
 }
 
-/* === FLOATING PARTICLES (CSS shapes) === */
-.particles {
+/* === DONUT RAIN === */
+.donut-rain {
   position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
   z-index: 2;
 }
-.particle {
+.donut-particle {
   position: absolute;
-  bottom: -60px;
-  animation: float-particle linear infinite;
-  animation-delay: var(--p-delay, 0s);
-  animation-duration: var(--p-dur, 20s);
+  top: -40px;
+  width: var(--d-size, 16px);
+  height: var(--d-size, 16px);
+  border-radius: 50%;
+  border: 3px solid var(--donut-pink);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px rgba(244, 143, 177, 0.3);
+  animation: donut-fall linear infinite;
+  animation-delay: var(--d-delay, 0s);
+  animation-duration: var(--d-dur, 14s);
   opacity: 0;
   user-select: none;
 }
-.particle-circle {
-  width: 8px;
-  height: 8px;
+/* Frosting bite mark on each donut */
+.donut-particle::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -1px;
+  width: 40%;
+  height: 40%;
+  background: var(--bg-primary);
   border-radius: 50%;
-  background: var(--accent);
-}
-.particle-ring {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: 1.5px solid var(--accent);
-  background: transparent;
-}
-.particle-diamond {
-  width: 8px;
-  height: 8px;
-  background: var(--accent);
-  transform: rotate(45deg);
-  border-radius: 1px;
 }
 
-@keyframes float-particle {
-  0%   { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
-  5%   { opacity: var(--p-opacity, 0.05); }
-  50%  { transform: translateY(calc(-50vh - 50px)) rotate(180deg) scale(1); }
-  95%  { opacity: var(--p-opacity, 0.05); }
-  100% { transform: translateY(calc(-100vh - 120px)) rotate(360deg) scale(0.8); opacity: 0; }
+@keyframes donut-fall {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+  5%   { opacity: 0.15; }
+  50%  { transform: translateY(50vh) rotate(180deg); opacity: 0.12; }
+  95%  { opacity: 0.08; }
+  100% { transform: translateY(calc(100vh + 60px)) rotate(360deg); opacity: 0; }
 }
 
 /* === STATS BAR === */
@@ -1005,22 +1002,75 @@
   color: var(--text-secondary);
   max-width: 75%;
 }
-.mock-input {
+.mock-input-live {
   margin: 0 14px 12px;
   background: var(--bg-tertiary);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 8px 12px;
-  font-size: 0.7rem;
-  color: var(--text-tertiary);
+  padding: 4px 4px 4px 12px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 6px;
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
-.mock-send {
-  color: var(--accent);
-  font-size: 0.8rem;
+.mock-input-live:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-muted);
 }
+.mock-input-field {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: "Inter", sans-serif;
+  font-size: 0.7rem;
+  color: var(--text-primary);
+  padding: 4px 0;
+}
+.mock-input-field::placeholder {
+  color: var(--text-tertiary);
+}
+.mock-send-live {
+  width: 26px;
+  height: 26px;
+  border: none;
+  background: var(--accent);
+  color: var(--text-inverse);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  flex-shrink: 0;
+}
+.mock-send-live:hover {
+  background: #FFEB3B;
+  transform: scale(1.05);
+}
+/* Mock typing indicator */
+.mock-typing {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+  font-size: 0.65rem;
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+.mock-typing-dots {
+  display: flex;
+  gap: 2px;
+}
+.mock-typing-dots span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: typing-bounce 1.2s ease-in-out infinite;
+}
+.mock-typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.mock-typing-dots span:nth-child(3) { animation-delay: 0.4s; }
 
 .mock-panel {
   width: 180px;
