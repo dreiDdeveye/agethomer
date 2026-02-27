@@ -57,7 +57,7 @@
   align-items: center;
 }
 .nav-brand-text {
-  font-family: "Bangers", cursive;
+  font-family: "Simpsonfont", cursive;
   font-size: 1.3rem;
   color: var(--accent);
   letter-spacing: 1px;
@@ -84,7 +84,7 @@
 
 .nav-cta {
   padding: 8px 20px;
-  font-family: "Inter", sans-serif;
+  font-family: "Simpsonfont", "Inter", sans-serif;
   font-size: 0.82rem;
   font-weight: 600;
   color: var(--accent);
@@ -112,7 +112,7 @@
   justify-content: center;
   padding: 80px 40px 40px;
   overflow: hidden;
-  background: url('image.png') center center / cover no-repeat;
+  background: url('640250735_897237429736236_8218658532225793599_n.jpg') center center / cover no-repeat;
 }
 
 /* Dark overlay so text stays readable over the bright image */
@@ -337,7 +337,7 @@
 
 /* Heading */
 .hero-heading {
-  font-family: "Bangers", cursive;
+  font-family: "Simpsonfont", cursive;
   font-size: 3.2rem;
   line-height: 1.1;
   letter-spacing: 2px;
@@ -371,7 +371,7 @@
   align-items: center;
   gap: 8px;
   padding: 12px 28px;
-  font-family: "Inter", sans-serif;
+  font-family: "Simpsonfont", "Inter", sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
   background: var(--accent);
@@ -397,7 +397,7 @@
 
 .cta-secondary {
   padding: 14px 28px;
-  font-family: "Inter", sans-serif;
+  font-family: "Simpsonfont", "Inter", sans-serif;
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--text-secondary);
@@ -596,8 +596,26 @@
 
 /* === HOW IT WORKS === */
 .how-section {
+  position: relative;
   padding: 100px 40px;
-  background: var(--bg-primary);
+  background: url('image2.png') center center / cover no-repeat;
+}
+.how-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 15, 0.93) 0%,
+    rgba(10, 10, 15, 0.72) 40%,
+    rgba(10, 10, 15, 0.72) 60%,
+    rgba(10, 10, 15, 0.93) 100%
+  );
+  z-index: 0;
+}
+.how-section > * {
+  position: relative;
+  z-index: 1;
 }
 
 .section-container {
@@ -609,7 +627,7 @@
   margin-bottom: 56px;
 }
 .section-title {
-  font-family: "Bangers", cursive;
+  font-family: "Simpsonfont", cursive;
   font-size: 2.8rem;
   letter-spacing: 2px;
   margin-bottom: 12px;
@@ -704,9 +722,27 @@
 
 /* === FEATURES SECTION === */
 .features-section {
+  position: relative;
   padding: 100px 40px;
-  background: var(--bg-secondary);
+  background: url('image.png') center center / cover no-repeat;
   border-top: 1px solid var(--border);
+}
+.features-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 15, 0.93) 0%,
+    rgba(10, 10, 15, 0.70) 40%,
+    rgba(10, 10, 15, 0.70) 60%,
+    rgba(10, 10, 15, 0.93) 100%
+  );
+  z-index: 0;
+}
+.features-section > * {
+  position: relative;
+  z-index: 1;
 }
 
 .features-grid {
@@ -1022,7 +1058,7 @@
   background: none;
   border: none;
   outline: none;
-  font-family: "Inter", sans-serif;
+  font-family: "Simpsonfont", "Inter", sans-serif;
   font-size: 0.7rem;
   color: var(--text-primary);
   padding: 4px 0;
@@ -1138,6 +1174,20 @@
   padding: 120px 40px;
   text-align: center;
   overflow: hidden;
+  background: url('639683975_974863651882669_6318976288150411501_n.jpg') center center / cover no-repeat;
+}
+.final-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 15, 0.92) 0%,
+    rgba(5, 5, 15, 0.60) 40%,
+    rgba(5, 5, 15, 0.60) 60%,
+    rgba(10, 10, 15, 0.92) 100%
+  );
+  z-index: 0;
 }
 .final-cta-glow {
   position: absolute;
@@ -1148,13 +1198,14 @@
   height: 600px;
   background: radial-gradient(ellipse, rgba(253, 216, 53, 0.08) 0%, transparent 65%);
   pointer-events: none;
+  z-index: 1;
 }
 .final-cta-content {
   position: relative;
   z-index: 1;
 }
 .final-heading {
-  font-family: "Bangers", cursive;
+  font-family: "Simpsonfont", cursive;
   font-size: 3.2rem;
   letter-spacing: 2px;
   margin-bottom: 14px;

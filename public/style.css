@@ -3,6 +3,14 @@
    Simpsons-accented dark UI
    ============================ */
 
+@font-face {
+  font-family: "Simpsonfont";
+  src: url("fonts/Simpsonfont.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Dark base */
   --bg-primary: #0a0a0f;
@@ -50,7 +58,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Simpsonfont", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background: var(--bg-primary);
   color: var(--text-primary);
   height: 100vh;
@@ -185,7 +193,7 @@ body {
 
 .mode-btn {
   padding: 5px 12px;
-  font-family: "Inter", sans-serif;
+  font-family: "Simpsonfont", "Inter", sans-serif;
   font-size: 0.75rem;
   font-weight: 500;
   border: none;
@@ -211,9 +219,22 @@ body {
   display: flex;
   overflow: hidden;
   min-height: 0;
+  position: relative;
+}
+
+#chat-area::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('639683975_974863651882669_6318976288150411501_n.jpg') center center / cover no-repeat;
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 0;
 }
 
 #chat-container {
+  position: relative;
+  z-index: 1;
   flex: 1;
   overflow-y: auto;
   padding: 24px;
@@ -409,7 +430,7 @@ body {
 #message-input {
   flex: 1;
   padding: 6px 0;
-  font-family: "Inter", sans-serif;
+  font-family: "Simpsonfont", "Inter", sans-serif;
   font-size: 0.9rem;
   border: none;
   outline: none;

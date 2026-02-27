@@ -11,7 +11,19 @@
       "Bash(taskkill:*)",
       "Bash(sleep 2:*)",
       "Bash(curl:*)",
-      "WebFetch(domain:cdn.jsdelivr.net)"
+      "WebFetch(domain:cdn.jsdelivr.net)",
+      "Bash(netstat:*)",
+      "Bash(ollama pull:*)",
+      "Bash(cd \"C:\\\\Users\\\\vicen\\\\OneDrive\\\\Desktop\\\\agethomer\" && npm run build 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\vicen\\\\OneDrive\\\\Desktop\\\\agethomer\" && npm run dev:web 2>&1)",
+      "Bash(cd /c/Users/vicen/OneDrive/Desktop/agethomer && npm run build 2>&1)",
+      "Bash(cd /c/Users/vicen/OneDrive/Desktop/agethomer && npm run dev:web 2>&1)",
+      "Bash(cd /c/Users/vicen/OneDrive/Desktop/agethomer && node dist/server.js 2>&1 || npx tsx src/server.ts 2>&1)",
+      "Bash(true:*)",
+      "WebFetch(domain:www.dafont.com)",
+      "Bash(ls:*)",
+      "Bash(cd /c/Users/vicen/OneDrive/Desktop/agethomer && start //b cmd /c \"npx tsx src/server.ts\" 2>&1)",
+      "Bash(ping:*)"
     ]
   }
 }

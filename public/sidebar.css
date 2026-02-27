@@ -57,7 +57,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   color: var(--text-secondary);
-  font-family: "Inter", sans-serif;
+  font-family: "Simpsonfont", "Inter", sans-serif;
   font-size: 0.82rem;
   font-weight: 500;
   cursor: pointer;
