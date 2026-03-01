@@ -1,15 +1,36 @@
 {
   "name": "homer-agent",
   "version": "1.0.0",
-  "description": "Homer Simpson AI Agent - D'oh!",
+  "description": "Homer Simpson AI Agent — Talk to Homer in your terminal or browser. Powered by xAI Grok.",
   "type": "module",
+  "bin": {
+    "homer-agent": "./dist/main.js"
+  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/main.js",
+    "start:web": "node dist/main.js --serve",
     "dev": "npx tsx src/main.ts",
-    "dev:web": "npx tsx src/server.ts",
-    "start:web": "node dist/server.js"
+    "dev:web": "npx tsx src/main.ts --serve",
+    "prepublishOnly": "npm run build"
   },
+  "keywords": [
+    "homer",
+    "simpson",
+    "ai",
+    "agent",
+    "chatbot",
+    "cli",
+    "grok",
+    "xai"
+  ],
+  "license": "MIT",
+  "files": [
+    "dist",
+    "public",
+    "data",
+    ".env.example"
+  ],
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^5.2.1",

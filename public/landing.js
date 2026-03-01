@@ -1,101 +1,120 @@
 /**
- * Landing Page Interactions — Homer Agent Funnel
- * Scroll effects, terminal animation, counter animation, CTA transition
+ * Landing Page — Scroll Storytelling
+ * Scene-aware navigation, terminal animation, feature drag scroll,
+ * interactive dashboard mock, CTA transitions
  */
 
-// ─── Navbar scroll: blur on scroll + hide/show on direction ─────
+// ─── Elements ───────────────────────────────────
+const scenes = document.getElementById("scenes");
+const dots = document.querySelectorAll(".dot-nav .dot");
+const sceneNav = document.getElementById("scene-nav");
+const scrollHint = document.getElementById("scroll-hint");
+const heroTerminal = document.getElementById("hero-terminal");
+const overlay = document.getElementById("transition-overlay");
 
-const navbar = document.getElementById("navbar");
-let lastScrollY = 0;
-let ticking = false;
+// ─── Dot Navigation — track active scene ────────
 
-function updateNavbar() {
-  const scrollY = window.scrollY;
+const sceneEls = document.querySelectorAll(".scene");
+let currentScene = 0;
 
-  // Blur background when scrolled
-  if (scrollY > 40) {
-    navbar.classList.add("scrolled");
-  } else {
-    navbar.classList.remove("scrolled");
+const sceneObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const idx = Array.from(sceneEls).indexOf(entry.target);
+        if (idx >= 0) {
+          currentScene = idx;
+          updateDots(idx);
+          updateNavbar(idx);
+          fadeScrollHint(idx);
+        }
+      }
+    });
+  },
+  {
+    root: scenes,
+    threshold: 0.6,
   }
+);
 
-  // Hide/show on scroll direction (only after 300px)
-  if (scrollY > 300) {
-    if (scrollY > lastScrollY + 5) {
-      navbar.classList.add("hidden");
-    } else if (scrollY < lastScrollY - 5) {
-      navbar.classList.remove("hidden");
-    }
-  } else {
-    navbar.classList.remove("hidden");
-  }
+sceneEls.forEach((el) => sceneObserver.observe(el));
 
-  lastScrollY = scrollY;
-  ticking = false;
+function updateDots(activeIdx) {
+  dots.forEach((dot, i) => {
+    dot.classList.toggle("active", i === activeIdx);
+  });
 }
 
-window.addEventListener("scroll", () => {
-  if (!ticking) {
-    requestAnimationFrame(updateNavbar);
-    ticking = true;
-  }
+// Dot click → scroll to scene
+dots.forEach((dot) => {
+  dot.addEventListener("click", () => {
+    const idx = parseInt(dot.dataset.scene, 10);
+    const target = document.getElementById(`scene-${idx}`);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+  });
 });
 
-// ─── Scroll-triggered fade-ins ──────────────────────────
+// ─── Navbar hide on scene 0, show on others ─────
 
-const fadeObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        fadeObserver.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.12, rootMargin: "0px 0px -50px 0px" }
-);
-
-document.querySelectorAll(".fade-in").forEach((el) => fadeObserver.observe(el));
-
-// ─── Animated number counters ───────────────────────────
-
-const counterObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const target = parseInt(el.dataset.target, 10);
-        animateCounter(el, target);
-        counterObserver.unobserve(el);
-      }
-    });
-  },
-  { threshold: 0.5 }
-);
-
-document.querySelectorAll(".counter").forEach((el) => counterObserver.observe(el));
-
-function animateCounter(el, target) {
-  let current = 0;
-  const step = Math.max(1, Math.floor(target / 15));
-  const interval = setInterval(() => {
-    current += step;
-    if (current >= target) {
-      current = target;
-      clearInterval(interval);
-    }
-    el.textContent = current;
-  }, 60);
+function updateNavbar(idx) {
+  if (idx === 0) {
+    sceneNav.classList.add("hidden");
+  } else {
+    sceneNav.classList.remove("hidden");
+  }
 }
 
-// ─── Terminal sequenced animation ───────────────────────
+// Initially hidden (scene 0 is showing)
+sceneNav.classList.add("hidden");
+
+// ─── Scroll hint fade after first scroll ────────
+
+function fadeScrollHint(idx) {
+  if (idx > 0 && scrollHint) {
+    scrollHint.classList.add("faded");
+  }
+}
+
+// ─── Scene Enter Animations ─────────────────────
+// Reveal .scene-enter elements when their parent scene scrolls into view
+
+function revealSceneElements(sceneEl) {
+  const els = sceneEl.querySelectorAll(".scene-enter:not(.visible)");
+  els.forEach((el) => el.classList.add("visible"));
+}
+
+// Scene 0 (intro) — reveal immediately on load
+setTimeout(() => revealSceneElements(document.getElementById("scene-0")), 100);
+
+// For other scenes, reveal when they come into view
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        revealSceneElements(entry.target);
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    root: scenes,
+    threshold: 0.2,
+  }
+);
+
+document.querySelectorAll(".scene").forEach((el, i) => {
+  if (i > 0) revealObserver.observe(el);
+});
+
+// ─── Terminal Typing Animation ──────────────────
 
 const termLine1 = document.getElementById("term-line-1");
 const termLine2 = document.getElementById("term-line-2");
 const termLine3 = document.getElementById("term-line-3");
 const typingTarget = document.getElementById("typing-target");
 const terminalCursor = document.getElementById("terminal-cursor");
-const heroTerminal = document.getElementById("hero-terminal");
 
 const typingText =
   "Mmm... let me use my brain calculator thingy... 847 divided by 3 is 282.333! See? I'm practically a mathlete! *takes bite of donut*";
@@ -107,7 +126,6 @@ function typeNextChar() {
   if (charIndex < typingText.length) {
     typingTarget.textContent += typingText[charIndex];
     charIndex++;
-    // Variable speed: faster for spaces, slower for punctuation
     let delay = 35;
     const ch = typingText[charIndex - 1];
     if (ch === " ") delay = 20;
@@ -116,7 +134,6 @@ function typeNextChar() {
     else if (ch === "*") delay = 60;
     setTimeout(typeNextChar, delay);
   } else {
-    // Done typing — cursor blinks then fades
     setTimeout(() => {
       if (terminalCursor) terminalCursor.style.opacity = "0";
     }, 2500);
@@ -127,43 +144,75 @@ function startTerminalSequence() {
   if (terminalAnimStarted) return;
   terminalAnimStarted = true;
 
-  // Step 1: User message appears
   setTimeout(() => {
     if (termLine1) termLine1.classList.add("visible");
   }, 400);
 
-  // Step 2: Tool chip appears
   setTimeout(() => {
     if (termLine2) termLine2.classList.add("visible");
   }, 1200);
 
-  // Step 3: Homer starts typing
   setTimeout(() => {
     if (termLine3) termLine3.classList.add("visible");
     setTimeout(typeNextChar, 300);
   }, 2000);
 }
 
-// Trigger terminal animation when visible
-const terminalObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        startTerminalSequence();
-        terminalObserver.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.3 }
-);
-
+// Trigger terminal animation when Scene 2 is visible
 if (heroTerminal) {
+  const terminalObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          startTerminalSequence();
+          terminalObserver.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      root: scenes,
+      threshold: 0.3,
+    }
+  );
   terminalObserver.observe(heroTerminal);
 }
 
-// ─── CTA transition overlay ────────────────────────────
+// ─── Feature Cards — Horizontal Drag Scroll ─────
 
-const overlay = document.getElementById("transition-overlay");
+const featuresTrack = document.getElementById("features-track");
+
+if (featuresTrack) {
+  let isDragging = false;
+  let startX = 0;
+  let scrollLeft = 0;
+
+  featuresTrack.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    featuresTrack.style.cursor = "grabbing";
+    startX = e.pageX - featuresTrack.offsetLeft;
+    scrollLeft = featuresTrack.scrollLeft;
+  });
+
+  featuresTrack.addEventListener("mouseleave", () => {
+    isDragging = false;
+    featuresTrack.style.cursor = "grab";
+  });
+
+  featuresTrack.addEventListener("mouseup", () => {
+    isDragging = false;
+    featuresTrack.style.cursor = "grab";
+  });
+
+  featuresTrack.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - featuresTrack.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    featuresTrack.scrollLeft = scrollLeft - walk;
+  });
+}
+
+// ─── CTA Transition Overlay ─────────────────────
 
 function triggerTransition(e) {
   e.preventDefault();
@@ -175,42 +224,60 @@ function triggerTransition(e) {
   }, 900);
 }
 
-// Attach to all CTA buttons
 document.getElementById("hero-cta")?.addEventListener("click", triggerTransition);
 document.getElementById("final-cta")?.addEventListener("click", triggerTransition);
 document.getElementById("nav-cta")?.addEventListener("click", triggerTransition);
 
-// ─── Smooth scroll for anchor links ─────────────────────
+// ─── Install Block — Tab Switch + Copy ───────────
 
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener("click", (e) => {
-    const href = anchor.getAttribute("href");
-    if (href === "#") return; // CTAs handled above
-    e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      // Offset for fixed navbar
-      const offset = navbar.offsetHeight + 20;
-      const top = target.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: "smooth" });
+const installCommands = {
+  npx: "npx homer-agent",
+  npm: "npm install -g homer-agent",
+  git: "git clone https://github.com/user/homer-agent.git",
+};
+
+const installTabs = document.querySelectorAll(".install-tab");
+const installCmd = document.getElementById("install-cmd");
+const installCopy = document.getElementById("install-copy");
+
+installTabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    installTabs.forEach((t) => t.classList.remove("active"));
+    tab.classList.add("active");
+    const key = tab.dataset.cmd;
+    if (installCmd && installCommands[key]) {
+      installCmd.textContent = installCommands[key];
     }
   });
 });
 
-// ─── Parallax-lite: hero glow follows scroll ────────────
-
-const heroGlow = document.querySelector(".hero-glow");
-
-if (heroGlow) {
-  window.addEventListener("scroll", () => {
-    const scrollY = window.scrollY;
-    if (scrollY < window.innerHeight) {
-      heroGlow.style.transform = `translateX(-50%) translateY(${scrollY * 0.15}px)`;
-    }
+if (installCopy && installCmd) {
+  installCopy.addEventListener("click", () => {
+    navigator.clipboard.writeText(installCmd.textContent).then(() => {
+      installCopy.classList.add("copied");
+      installCopy.innerHTML = '<i class="icon-check"></i>';
+      setTimeout(() => {
+        installCopy.classList.remove("copied");
+        installCopy.innerHTML = '<i class="icon-copy"></i>';
+      }, 2000);
+    });
   });
 }
 
-// ─── Interactive Dashboard Preview ──────────────────────
+// ─── Smooth scroll for anchor links ─────────────
+
+document.querySelectorAll('a[href^="#scene-"]').forEach((anchor) => {
+  anchor.addEventListener("click", (e) => {
+    e.preventDefault();
+    const href = anchor.getAttribute("href");
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+});
+
+// ─── Interactive Dashboard Preview ──────────────
 
 const mockInput = document.getElementById("mock-input-field");
 const mockSendBtn = document.getElementById("mock-send-btn");
@@ -233,17 +300,23 @@ function addMockMessage(text, isUser) {
   msg.className = `mock-msg ${isUser ? "mock-msg-user" : "mock-msg-homer"}`;
 
   if (isUser) {
-    msg.innerHTML = `<div class="mock-bubble">${text}</div>`;
+    msg.innerHTML = `<div class="mock-bubble">${escapeHtml(text)}</div>`;
   } else {
     msg.innerHTML = `
       <div class="mock-avatar"><i class="icon-bot" style="font-size:0.6rem"></i></div>
-      <div class="mock-msg-text">${text}</div>
+      <div class="mock-msg-text">${escapeHtml(text)}</div>
     `;
   }
 
   msg.style.animation = "msg-in 0.3s ease-out";
   mockChat.appendChild(msg);
   mockChat.scrollTop = mockChat.scrollHeight;
+}
+
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
 }
 
 function showMockTyping() {

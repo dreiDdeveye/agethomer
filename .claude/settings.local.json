@@ -23,7 +23,11 @@
       "WebFetch(domain:www.dafont.com)",
       "Bash(ls:*)",
       "Bash(cd /c/Users/vicen/OneDrive/Desktop/agethomer && start //b cmd /c \"npx tsx src/server.ts\" 2>&1)",
-      "Bash(ping:*)"
+      "Bash(ping:*)",
+      "Bash(find:*)",
+      "Bash(cd /c/Users/vicen/OneDrive/Desktop/agethomer && npx tsx src/main.ts --serve 2>&1)",
+      "Bash(echo EXIT CODE: $?:*)",
+      "Bash(echo EXIT: $?:*)"
     ]
   }
 }

@@ -1,14 +1,14 @@
 /**
  * The Homer Simpson agent — a real AI agent with tools and modes.
- * Uses Ollama's native API for reliable local inference.
+ * Uses xAI's Grok API via the OpenAI SDK.
  */
 
+import OpenAI from "openai";
 import { CONFIG } from "./config.js";
 import { Conversation } from "./conversation.js";
 import { getSystemPrompt, type AgentMode } from "./modes.js";
 import { getRandomGreeting } from "./personality.js";
 import { TOOL_DEFINITIONS, executeTool } from "./tools/index.js";
-import type OpenAI from "openai";
 
 /** Callbacks for streaming events to the UI */
 export interface AgentCallbacks {
@@ -29,68 +29,19 @@ const NO_OP_CALLBACKS: AgentCallbacks = {
   onError: () => {},
 };
 
-/** Convert our OpenAI-format tools to Ollama's native tool format */
-function toOllamaTools(): object[] {
-  return TOOL_DEFINITIONS.map((t) => {
-    const tool = t as { type: string; function: { name: string; description: string; parameters: unknown } };
-    return {
-      type: "function",
-      function: {
-        name: tool.function.name,
-        description: tool.function.description,
-        parameters: tool.function.parameters,
-      },
-    };
-  });
-}
-
-/** Call Ollama's native /api/chat endpoint */
-async function ollamaChat(
-  messages: Array<{ role: string; content: string; tool_calls?: unknown[]; }>,
-  tools?: object[],
-): Promise<{ content: string; toolCalls: Array<{ id: string; name: string; arguments: string }> }> {
-  const body: Record<string, unknown> = {
-    model: CONFIG.model,
-    messages,
-    stream: false,
-    options: { num_predict: CONFIG.maxTokens },
-  };
-  if (tools && tools.length > 0) {
-    body.tools = tools;
+/** Lazy-initialized OpenAI client pointed at xAI */
+let _client: OpenAI | null = null;
+function getClient(): OpenAI {
+  if (!_client) {
+    if (!CONFIG.apiKey || CONFIG.apiKey === "your-xai-api-key-here") {
+      throw new Error("Missing XAI_API_KEY — add it to your .env file. Get a free key at https://console.x.ai/");
+    }
+    _client = new OpenAI({
+      apiKey: CONFIG.apiKey,
+      baseURL: CONFIG.baseUrl,
+    });
   }
-
-  const res = await fetch(`${CONFIG.baseUrl.replace("/v1", "")}/api/chat`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-    signal: AbortSignal.timeout(120_000),
-  });
-
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`Ollama error ${res.status}: ${text}`);
-  }
-
-  const data = await res.json() as {
-    message?: {
-      content?: string;
-      tool_calls?: Array<{
-        function: { name: string; arguments: Record<string, unknown> };
-      }>;
-    };
-  };
-
-  const msg = data.message || {};
-  const toolCalls = (msg.tool_calls || []).map((tc, i) => ({
-    id: `call_${Date.now()}_${i}`,
-    name: tc.function.name,
-    arguments: JSON.stringify(tc.function.arguments),
-  }));
-
-  return {
-    content: msg.content || "",
-    toolCalls,
-  };
+  return _client;
 }
 
 export class HomerAgent {
@@ -137,66 +88,74 @@ export class HomerAgent {
     this.conversation.addUserMessage(userMessage);
 
     let fullTextResponse = "";
-    const tools = toOllamaTools();
 
     for (let iteration = 0; iteration < CONFIG.maxIterations; iteration++) {
       // Build messages with system prompt at the front
-      const msgs = [
+      const msgs: OpenAI.ChatCompletionMessageParam[] = [
         { role: "system", content: getSystemPrompt(this.mode) },
-        ...this.conversation.getMessages().map((m) => ({
-          role: m.role as string,
-          content: typeof m.content === "string" ? m.content : "",
-        })),
+        ...this.conversation.getMessages(),
       ];
 
-      // --- Call Ollama native API (tools disabled for small models) ---
-      const result = await ollamaChat(msgs);
+      // --- Call xAI Grok via OpenAI SDK ---
+      const response = await getClient().chat.completions.create({
+        model: CONFIG.model,
+        messages: msgs,
+        tools: TOOL_DEFINITIONS as OpenAI.ChatCompletionTool[],
+        max_tokens: CONFIG.maxTokens,
+      });
+
+      const choice = response.choices[0];
+      const message = choice.message;
+      const content = message.content || "";
+      // Extract function tool calls only
+      const rawToolCalls = message.tool_calls || [];
+      const toolCalls = rawToolCalls.filter(
+        (tc): tc is OpenAI.ChatCompletionMessageToolCall & { type: "function" } =>
+          tc.type === "function",
+      );
 
       // Send text to UI
-      if (result.content) {
-        fullTextResponse += result.content;
-        cb.onChunk(result.content);
+      if (content) {
+        fullTextResponse += content;
+        cb.onChunk(content);
       }
 
       // --- Store the assistant message ---
-      if (result.toolCalls.length > 0) {
-        const toolCallArray: OpenAI.ChatCompletionMessageToolCall[] =
-          result.toolCalls.map((tc) => ({
-            id: tc.id,
-            type: "function" as const,
-            function: { name: tc.name, arguments: tc.arguments },
-          }));
+      if (toolCalls.length > 0) {
         this.conversation.addAssistantToolCalls(
-          result.content || null,
-          toolCallArray,
+          content || null,
+          toolCalls,
         );
       } else {
-        this.conversation.addAssistantMessage(result.content);
+        this.conversation.addAssistantMessage(content);
       }
 
       // --- If no tool calls, we're done ---
-      if (result.toolCalls.length === 0) {
+      if (toolCalls.length === 0) {
         break;
       }
 
       // --- Execute tools ---
-      for (const tc of result.toolCalls) {
-        cb.onToolUse(tc.name, tc.id);
+      for (const tc of toolCalls) {
+        const fnName = tc.function.name;
+        const fnArgs = tc.function.arguments;
+
+        cb.onToolUse(fnName, tc.id);
 
         let input: unknown;
         try {
-          input = JSON.parse(tc.arguments);
+          input = JSON.parse(fnArgs);
         } catch {
           input = {};
         }
 
         try {
-          const execResult = await executeTool(tc.name, input);
-          cb.onToolResult(tc.name, tc.id, execResult, false);
+          const execResult = await executeTool(fnName, input);
+          cb.onToolResult(fnName, tc.id, execResult, false);
           this.conversation.addToolResult(tc.id, execResult);
         } catch (err) {
           const errMsg = err instanceof Error ? err.message : String(err);
-          cb.onToolResult(tc.name, tc.id, errMsg, true);
+          cb.onToolResult(fnName, tc.id, errMsg, true);
           this.conversation.addToolResult(tc.id, errMsg);
         }
       }

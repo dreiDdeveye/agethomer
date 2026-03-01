@@ -11,291 +11,253 @@
 </head>
 <body class="landing-page">
 
-  <!-- NAVBAR -->
-  <nav class="navbar" id="navbar">
-    <div class="nav-inner">
-      <a href="/" class="nav-brand">
-        <div class="nav-brand-icon"><i class="icon-bot"></i></div>
-        <span class="nav-brand-text">Homer Agent</span>
-      </a>
-      <div class="nav-links">
-        <a href="#features" class="nav-link">Features</a>
-        <a href="#how-it-works" class="nav-link">How It Works</a>
-        <a href="#preview" class="nav-link">Preview</a>
-        <a href="#" class="nav-cta" id="nav-cta">Enter Chat <i class="icon-arrow-right" style="font-size:0.75rem"></i></a>
-      </div>
-    </div>
+  <!-- FLOATING NAVBAR -->
+  <nav class="scene-nav" id="scene-nav">
+    <a href="/" class="scene-nav-brand">
+      <div class="scene-nav-icon"><i class="icon-bot"></i></div>
+      <span>Homer Agent</span>
+    </a>
+    <a href="#" class="scene-nav-cta" id="nav-cta">
+      Enter Chat <i class="icon-arrow-right" style="font-size:0.7rem"></i>
+    </a>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <!-- Springfield sky -->
-    <div class="sky-stars" aria-hidden="true"></div>
-    <div class="cloud cloud-1" aria-hidden="true"></div>
-    <div class="cloud cloud-2" aria-hidden="true"></div>
-    <div class="cloud cloud-3" aria-hidden="true"></div>
+  <!-- DOT NAVIGATION (right edge) -->
+  <div class="dot-nav" id="dot-nav">
+    <button class="dot active" data-scene="0"><span class="dot-label">Intro</span></button>
+    <button class="dot" data-scene="1"><span class="dot-label">Tools</span></button>
+    <button class="dot" data-scene="2"><span class="dot-label">Features</span></button>
+    <button class="dot" data-scene="3"><span class="dot-label">Preview</span></button>
+    <button class="dot" data-scene="4"><span class="dot-label">Chat</span></button>
+  </div>
 
-    <!-- Falling donut rain -->
-    <div class="donut-rain" aria-hidden="true">
-      <span class="donut-particle" style="left:5%;--d-delay:0s;--d-dur:12s;--d-size:18px"></span>
-      <span class="donut-particle" style="left:15%;--d-delay:3s;--d-dur:15s;--d-size:14px"></span>
-      <span class="donut-particle" style="left:25%;--d-delay:1.5s;--d-dur:13s;--d-size:20px"></span>
-      <span class="donut-particle" style="left:35%;--d-delay:5s;--d-dur:16s;--d-size:12px"></span>
-      <span class="donut-particle" style="left:45%;--d-delay:2s;--d-dur:14s;--d-size:16px"></span>
-      <span class="donut-particle" style="left:55%;--d-delay:7s;--d-dur:12s;--d-size:22px"></span>
-      <span class="donut-particle" style="left:65%;--d-delay:0.5s;--d-dur:17s;--d-size:14px"></span>
-      <span class="donut-particle" style="left:75%;--d-delay:4s;--d-dur:13s;--d-size:18px"></span>
-      <span class="donut-particle" style="left:85%;--d-delay:6s;--d-dur:15s;--d-size:16px"></span>
-      <span class="donut-particle" style="left:93%;--d-delay:2.5s;--d-dur:14s;--d-size:12px"></span>
-    </div>
+  <!-- SCROLL SNAP CONTAINER -->
+  <main class="scenes" id="scenes">
 
-    <div class="hero-glow" aria-hidden="true"></div>
-
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span class="hero-badge-dot"></span>
-        Powered by Ollama (Local AI)
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SCENE 1 — THE SPRINGFIELD INTRO            -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="scene scene-intro" id="scene-0">
+      <!-- Donut rain -->
+      <div class="donut-rain" aria-hidden="true">
+        <span class="donut-particle" style="left:5%;--d-delay:0s;--d-dur:12s;--d-size:18px"></span>
+        <span class="donut-particle" style="left:15%;--d-delay:3s;--d-dur:15s;--d-size:14px"></span>
+        <span class="donut-particle" style="left:25%;--d-delay:1.5s;--d-dur:13s;--d-size:20px"></span>
+        <span class="donut-particle" style="left:45%;--d-delay:2s;--d-dur:14s;--d-size:16px"></span>
+        <span class="donut-particle" style="left:65%;--d-delay:0.5s;--d-dur:17s;--d-size:14px"></span>
+        <span class="donut-particle" style="left:85%;--d-delay:6s;--d-dur:15s;--d-size:16px"></span>
       </div>
 
-      <h1 class="hero-heading">
-        Your Favorite Springfield<br>
-        Safety Inspector<br>
-        <span class="accent">Is Now an AI Agent</span>
-      </h1>
-
-      <p class="hero-subtitle">
-        The donut-loving, Duff-drinking, nuclear safety inspector you know and love &mdash;
-        now powered by AI with real tools, persistent memory, and 128K context.
-      </p>
-
-      <div class="hero-cta-group">
-        <a href="#" class="cta-primary glow-pulse" id="hero-cta">
-          <i class="icon-message-circle"></i> Talk to Homer
-        </a>
-        <a href="#features" class="cta-secondary">See Capabilities</a>
-      </div>
-
-      <!-- Terminal preview -->
-      <div class="hero-terminal" id="hero-terminal">
-        <div class="terminal-bar">
-          <span class="terminal-dot red"></span>
-          <span class="terminal-dot yellow"></span>
-          <span class="terminal-dot green"></span>
-          <span class="terminal-title">homer-agent</span>
+      <div class="scene-intro-content">
+        <div class="intro-badge scene-enter">
+          <span class="intro-badge-dot"></span>
+          Powered by xAI Grok
         </div>
-        <div class="terminal-body">
-          <div class="terminal-line" id="term-line-1">
-            <span class="user-label">You</span>
-            <span>What's 847 divided by 3?</span>
+
+        <h1 class="intro-heading scene-enter scene-enter-delay-1">
+          Your Favorite<br>
+          Springfield Safety<br>
+          Inspector<br>
+          <span class="intro-heading-accent">Is Now an AI Agent</span>
+        </h1>
+
+        <p class="intro-subtitle scene-enter scene-enter-delay-2">
+          The donut-loving, Duff-drinking, nuclear safety inspector you know and love &mdash;
+          now powered by AI with real tools, persistent memory, and 128K context.
+        </p>
+
+        <div class="intro-cta-row scene-enter scene-enter-delay-3">
+          <a href="#" class="btn-primary" id="hero-cta">
+            <i class="icon-message-circle"></i> Talk to Homer
+          </a>
+          <a href="#scene-2" class="btn-ghost">See Capabilities</a>
+        </div>
+
+        <div class="intro-stats scene-enter scene-enter-delay-4">
+          <div class="intro-stat">
+            <span class="intro-stat-dot online"></span>
+            Agent Online
           </div>
-          <div class="terminal-line" id="term-line-2">
-            <span class="tool-chip"><i class="icon-calculator" style="font-size:0.7rem"></i> Calculator &middot; Running...</span>
+          <div class="intro-stat">
+            <i class="icon-brain intro-stat-icon"></i>
+            Grok 3 Mini
           </div>
-          <div class="terminal-line" id="term-line-3">
-            <span class="homer-label">Homer</span>
-            <span id="typing-target"></span><span class="terminal-cursor" id="terminal-cursor"></span>
+          <div class="intro-stat">
+            <i class="icon-wrench intro-stat-icon"></i>
+            <strong>6</strong> Tools
           </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Springfield horizon glow & skyline silhouette -->
-    <div class="sky-horizon-glow" aria-hidden="true"></div>
-    <svg class="skyline-svg" viewBox="0 0 1440 250" preserveAspectRatio="none" aria-hidden="true">
-      <path d="
-        M0 250 V195
-        H20 V180 H40 V195
-        H70 V188 H90 V195
-        H115 V168 H135 V195
-        H165 V182 H185 V195
-        H215 V155 H228 V140 H242 V155 H255 V195
-        H290 V182 H310 V195
-        H345 V172 H360 V158 H375 V172 H395 V195
-        H430 L455,130 L445,60 L528,60 L518,130 L543,195
-        H570 L595,130 L585,60 L668,60 L658,130 L683,195
-        H710 V178 H730 V195
-        H760 V165 H780 V195
-        H810 V155 H825 V118 L838,50 L851,118 H851 V155 H865 V195
-        H900 V182 H920 V195
-        H950 V168 H965 V152 H980 V168 H995 V195
-        H1030 V188 H1050 V195
-        H1080 V178 H1100 V195
-        H1130 V172 H1148 V160 H1165 V172 H1180 V195
-        H1215 V186 H1235 V195
-        H1270 V182 H1295 V195
-        H1335 V190 H1360 V195
-        H1400 V188 H1425 V195
-        H1440 V250 Z
-      " fill="#0a0a0f"/>
-    </svg>
-  </section>
-
-  <!-- STATS BAR -->
-  <section class="stats-bar">
-    <div class="stats-inner">
-      <div class="stat-pill">
-        <span class="stat-dot online"></span>
-        <span>Agent Online</span>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-pill">
-        <i class="icon-brain stat-icon-lu"></i>
-        <span>Llama 3.2</span>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-pill">
-        <i class="icon-wrench stat-icon-lu"></i>
-        <span><strong class="counter" data-target="6">0</strong> Tools</span>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-pill">
-        <i class="icon-sliders-horizontal stat-icon-lu"></i>
-        <span><strong class="counter" data-target="3">0</strong> Modes</span>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-pill">
-        <i class="icon-lightbulb stat-icon-lu"></i>
-        <span>128K Context</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section class="how-section" id="how-it-works">
-    <div class="section-container">
-      <div class="section-header">
-        <h2 class="section-title fade-in">How It Works</h2>
-        <p class="section-subtitle fade-in">Three steps to talk to the smartest guy at Sector 7-G.</p>
-      </div>
-
-      <div class="steps-row">
-        <div class="step-card fade-in">
-          <div class="step-number">1</div>
-          <div class="step-icon-wrap"><i class="icon-message-square"></i></div>
-          <h3 class="step-title">Send a Message</h3>
-          <p class="step-desc">Type anything &mdash; ask a question, tell him a joke, or give him a math problem. Homer responds in character, always.</p>
-        </div>
-        <div class="step-connector" aria-hidden="true">
-          <svg width="40" height="2"><line x1="0" y1="1" x2="40" y2="1" stroke="var(--border-active)" stroke-width="2" stroke-dasharray="6 4"/></svg>
-        </div>
-        <div class="step-card fade-in">
-          <div class="step-number">2</div>
-          <div class="step-icon-wrap"><i class="icon-cog"></i></div>
-          <h3 class="step-title">Homer Uses His Tools</h3>
-          <p class="step-desc">Need math? He runs the calculator. Want a reminder? He sets one. Watch the tools fire in real-time with live status.</p>
-        </div>
-        <div class="step-connector" aria-hidden="true">
-          <svg width="40" height="2"><line x1="0" y1="1" x2="40" y2="1" stroke="var(--border-active)" stroke-width="2" stroke-dasharray="6 4"/></svg>
-        </div>
-        <div class="step-card fade-in">
-          <div class="step-number">3</div>
-          <div class="step-icon-wrap"><i class="icon-database"></i></div>
-          <h3 class="step-title">He Remembers You</h3>
-          <p class="step-desc">Tell Homer your name, your favorite beer, or anything else. He saves it to memory and recalls it in future conversations.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section class="features-section" id="features">
-    <div class="section-container">
-      <div class="section-header">
-        <h2 class="section-title fade-in">What Homer Can Do</h2>
-        <p class="section-subtitle fade-in">A full AI agent with real tools &mdash; not just a chatbot with a funny voice.</p>
-      </div>
-
-      <div class="features-grid">
-        <div class="feature-card fade-in" style="--card-accent: var(--homer-blue)">
-          <div class="feature-icon-wrap"><i class="icon-hard-drive"></i></div>
-          <h3 class="feature-title">Long-Term Memory</h3>
-          <p class="feature-desc">Homer remembers what you tell him &mdash; across conversations. Save important facts, recall them later, or list everything he knows.</p>
-          <div class="feature-mini">
-            <div><span class="mini-label">tools:</span> <span class="mini-value">memory_save</span> &middot; <span class="mini-value">memory_recall</span> &middot; <span class="mini-value">memory_list</span></div>
-          </div>
-        </div>
-
-        <div class="feature-card fade-in" style="--card-accent: var(--springfield-green)">
-          <div class="feature-icon-wrap"><i class="icon-wrench"></i></div>
-          <h3 class="feature-title">6 Built-In Tools</h3>
-          <p class="feature-desc">From a safe math calculator to a persistent reminder system, Homer has real tools he uses autonomously to get things done.</p>
-          <div class="feature-mini">
-            <div><span class="mini-label">tools:</span> <span class="mini-value">calculator</span> &middot; <span class="mini-green">reminder_set</span> &middot; <span class="mini-green">reminder_list</span></div>
-          </div>
-        </div>
-
-        <div class="feature-card fade-in" style="--card-accent: var(--accent)">
-          <div class="feature-icon-wrap"><i class="icon-brain"></i></div>
-          <h3 class="feature-title">Thinks Out Loud</h3>
-          <p class="feature-desc">Homer has a massive 128K token context window. He can remember the entire conversation history without breaking a sweat (or a beer).</p>
-          <div class="feature-mini">
-            <div><span class="mini-label">context:</span> <span class="mini-value">128K tokens</span> &middot; <span class="mini-label">stream:</span> <span class="mini-green">live</span></div>
-          </div>
-        </div>
-
-        <div class="feature-card fade-in" style="--card-accent: var(--donut-pink)">
-          <div class="feature-icon-wrap"><i class="icon-toggle-right"></i></div>
-          <h3 class="feature-title">3 Personality Modes</h3>
-          <p class="feature-desc">Switch between Classic Homer, Serious mode for real tasks, or Dev mode with debug output. Same brain, different vibes.</p>
-          <div class="feature-mini">
-            <div><span class="mini-value">classic</span> &middot; <span class="mini-value">serious</span> &middot; <span class="mini-value">dev</span></div>
+          <div class="intro-stat">
+            <i class="icon-lightbulb intro-stat-icon"></i>
+            128K Context
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- QUOTES (Social Proof) -->
-  <section class="quotes-section">
-    <div class="section-container">
-      <div class="quotes-grid">
-        <div class="quote-card fade-in">
-          <div class="quote-icon"><i class="icon-quote"></i></div>
-          <div class="quote-text">I asked him to remember my birthday and he actually did. Better than my real dad.</div>
-          <div class="quote-author">
-            <div class="quote-avatar"><i class="icon-user"></i></div>
-            <div>
-              <div class="quote-name">Barney Gumble</div>
-              <div class="quote-role">Moe's Tavern Regular</div>
+      <!-- Scroll indicator -->
+      <div class="scroll-hint" id="scroll-hint">
+        <span>Scroll</span>
+        <div class="scroll-hint-arrow">
+          <i class="icon-chevron-down"></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SCENE 2 — THE BRAIN (Tools + Terminal)     -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="scene scene-tools" id="scene-1">
+      <div class="scene-tools-grid">
+        <!-- Left: text -->
+        <div class="tools-text">
+          <div class="scene-label scene-enter">How It Works</div>
+          <h2 class="tools-heading scene-enter scene-enter-delay-1">
+            Homer Uses<br>
+            <span class="tools-heading-accent">Real Tools</span>
+          </h2>
+          <p class="tools-desc scene-enter scene-enter-delay-2">
+            Not just a chatbot with a funny voice. Homer has autonomous access to real tools he decides when to use.
+          </p>
+
+          <div class="tools-pills">
+            <div class="tool-pill scene-enter scene-enter-delay-2">
+              <i class="icon-calculator"></i>
+              <div>
+                <div class="tool-pill-title">Calculator</div>
+                <div class="tool-pill-sub">Safe math evaluation</div>
+              </div>
+            </div>
+            <div class="tool-pill scene-enter scene-enter-delay-3">
+              <i class="icon-hard-drive"></i>
+              <div>
+                <div class="tool-pill-title">Memory</div>
+                <div class="tool-pill-sub">Save, recall, list facts</div>
+              </div>
+            </div>
+            <div class="tool-pill scene-enter scene-enter-delay-4">
+              <i class="icon-bell"></i>
+              <div>
+                <div class="tool-pill-title">Reminders</div>
+                <div class="tool-pill-sub">Set & manage reminders</div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="quote-card fade-in">
-          <div class="quote-icon"><i class="icon-quote"></i></div>
-          <div class="quote-text">The 128K context window is fascinating. He remembers everything from the start of our conversation!</div>
-          <div class="quote-author">
-            <div class="quote-avatar"><i class="icon-flask-conical"></i></div>
-            <div>
-              <div class="quote-name">Prof. Frink</div>
-              <div class="quote-role">Springfield University</div>
+
+        <!-- Right: terminal + install -->
+        <div class="tools-terminal-wrap scene-enter scene-enter-delay-3">
+          <div class="tools-terminal" id="hero-terminal">
+            <div class="terminal-bar">
+              <span class="terminal-dot red"></span>
+              <span class="terminal-dot yellow"></span>
+              <span class="terminal-dot green"></span>
+              <span class="terminal-title">homer-agent</span>
+            </div>
+            <div class="terminal-body">
+              <div class="terminal-line" id="term-line-1">
+                <span class="user-label">You</span>
+                <span>What's 847 divided by 3?</span>
+              </div>
+              <div class="terminal-line" id="term-line-2">
+                <span class="tool-chip"><i class="icon-calculator" style="font-size:0.7rem"></i> Calculator &middot; Running...</span>
+              </div>
+              <div class="terminal-line" id="term-line-3">
+                <span class="homer-label">Homer</span>
+                <span id="typing-target"></span><span class="terminal-cursor" id="terminal-cursor"></span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="quote-card fade-in">
-          <div class="quote-icon"><i class="icon-quote"></i></div>
-          <div class="quote-text">He calculated my tax deductions faster than my accountant. D'oh-lightful!</div>
-          <div class="quote-author">
-            <div class="quote-avatar"><i class="icon-landmark"></i></div>
-            <div>
-              <div class="quote-name">C.M. Burns</div>
-              <div class="quote-role">Plant Owner, Burns Industries</div>
+
+          <!-- Install command -->
+          <div class="install-block scene-enter scene-enter-delay-4">
+            <div class="install-tabs">
+              <button class="install-tab active" data-cmd="npx">npx</button>
+              <button class="install-tab" data-cmd="npm">npm</button>
+              <button class="install-tab" data-cmd="git">git</button>
             </div>
+            <div class="install-terminal">
+              <span class="install-prompt">$</span>
+              <code class="install-cmd" id="install-cmd">npx homer-agent</code>
+              <button class="install-copy" id="install-copy" title="Copy to clipboard">
+                <i class="icon-copy"></i>
+              </button>
+            </div>
+            <div class="install-hint">Run in your terminal to start chatting. Add <code>--serve</code> for web dashboard.</div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- DASHBOARD PREVIEW -->
-  <section class="preview-section" id="preview">
-    <div class="section-container">
-      <div class="section-header">
-        <h2 class="section-title fade-in">The Full Dashboard Experience</h2>
-        <p class="section-subtitle fade-in">A dark, polished interface inspired by modern AI tools &mdash; with Simpsons flair.</p>
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SCENE 3 — WHAT HOMER CAN DO (Features)    -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="scene scene-features" id="scene-2">
+      <div class="features-header">
+        <div class="scene-label scene-enter">Capabilities</div>
+        <h2 class="features-heading scene-enter scene-enter-delay-1">What Homer Can Do</h2>
+        <p class="features-sub scene-enter scene-enter-delay-2">A full AI agent with real tools &mdash; not just a chatbot with a funny voice.</p>
       </div>
 
-      <div class="preview-wrapper fade-in">
-        <div class="preview-frame">
+      <div class="features-track scene-enter scene-enter-delay-3" id="features-track">
+        <div class="feature-slide" style="--slide-accent: var(--homer-blue)">
+          <div class="feature-slide-icon"><i class="icon-hard-drive"></i></div>
+          <h3>Long-Term Memory</h3>
+          <p>Homer remembers what you tell him &mdash; across conversations. Save important facts, recall them later, or list everything he knows.</p>
+          <div class="feature-slide-tools">
+            <span>memory_save</span>
+            <span>memory_recall</span>
+            <span>memory_list</span>
+          </div>
+        </div>
+
+        <div class="feature-slide" style="--slide-accent: var(--springfield-green)">
+          <div class="feature-slide-icon"><i class="icon-wrench"></i></div>
+          <h3>6 Built-In Tools</h3>
+          <p>From a safe math calculator to a persistent reminder system, Homer has real tools he uses autonomously to get things done.</p>
+          <div class="feature-slide-tools">
+            <span>calculator</span>
+            <span>reminder_set</span>
+            <span>reminder_list</span>
+          </div>
+        </div>
+
+        <div class="feature-slide" style="--slide-accent: var(--accent)">
+          <div class="feature-slide-icon"><i class="icon-brain"></i></div>
+          <h3>128K Context</h3>
+          <p>Homer has a massive context window. He can remember the entire conversation history without breaking a sweat (or a beer).</p>
+          <div class="feature-slide-tools">
+            <span>128K tokens</span>
+            <span>live streaming</span>
+          </div>
+        </div>
+
+        <div class="feature-slide" style="--slide-accent: var(--donut-pink)">
+          <div class="feature-slide-icon"><i class="icon-toggle-right"></i></div>
+          <h3>3 Personality Modes</h3>
+          <p>Switch between Classic Homer, Serious mode for real tasks, or Dev mode with debug output. Same brain, different vibes.</p>
+          <div class="feature-slide-tools">
+            <span>classic</span>
+            <span>serious</span>
+            <span>dev</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="features-scroll-hint scene-enter scene-enter-delay-4">
+        <i class="icon-arrow-left"></i>
+        Drag to explore
+        <i class="icon-arrow-right"></i>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SCENE 4 — SEE IT IN ACTION (Preview)      -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="scene scene-preview" id="scene-3">
+      <div class="preview-content">
+        <div class="scene-label scene-enter">Live Preview</div>
+        <h2 class="preview-heading scene-enter scene-enter-delay-1">See It In Action</h2>
+
+        <div class="preview-frame scene-enter scene-enter-delay-2">
           <div class="mock-dashboard">
             <!-- Mock sidebar -->
             <div class="mock-sidebar">
@@ -353,48 +315,41 @@
           </div>
         </div>
 
-        <div class="preview-annotations">
-          <div class="annotation">
-            <span class="annotation-dot" style="background:var(--homer-blue)"></span>
-            Conversation History
-          </div>
-          <div class="annotation">
-            <span class="annotation-dot" style="background:var(--accent)"></span>
-            3 Personality Modes
-          </div>
-          <div class="annotation">
-            <span class="annotation-dot" style="background:var(--springfield-green)"></span>
-            Live Tool Activity
-          </div>
-          <div class="annotation">
-            <span class="annotation-dot" style="background:var(--donut-pink)"></span>
-            Persistent Memory
+        <!-- Quote -->
+        <div class="preview-quote scene-enter scene-enter-delay-4">
+          <div class="preview-quote-icon"><i class="icon-quote"></i></div>
+          <div class="preview-quote-text">"I asked him to remember my birthday and he actually did. Better than my real dad."</div>
+          <div class="preview-quote-author">
+            <span class="preview-quote-name">Barney Gumble</span>
+            <span class="preview-quote-role">Moe's Tavern Regular</span>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- FINAL CTA -->
-  <section class="final-cta">
-    <div class="final-cta-glow" aria-hidden="true"></div>
-    <div class="final-cta-content">
-      <h2 class="final-heading fade-in">Ready to Chat with Homer?</h2>
-      <p class="final-sub fade-in">He's been waiting at Moe's Tavern. Pull up a stool.</p>
-      <a href="#" class="cta-primary cta-large glow-pulse fade-in" id="final-cta"><i class="icon-message-circle"></i> Talk to Homer</a>
-    </div>
-  </section>
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SCENE 5 — PULL UP A STOOL (CTA + Footer)  -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="scene scene-cta" id="scene-4">
+      <div class="cta-glow" aria-hidden="true"></div>
+      <div class="cta-content">
+        <h2 class="cta-heading scene-enter">Ready to Chat<br>with Homer?</h2>
+        <p class="cta-sub scene-enter scene-enter-delay-1">He's been waiting at Moe's Tavern. Pull up a stool.</p>
+        <a href="#" class="btn-primary btn-large scene-enter scene-enter-delay-2" id="final-cta">
+          <i class="icon-message-circle"></i> Talk to Homer
+        </a>
+      </div>
 
-  <!-- FOOTER -->
-  <footer class="landing-footer">
-    <div class="footer-inner">
-      <span>Homer Agent v1.0</span>
-      <span class="footer-sep">&middot;</span>
-      <span>Built with Ollama + Llama 3.2</span>
-      <span class="footer-sep">&middot;</span>
-      <span>&copy; 2026 Springfield Nuclear Power Plant</span>
-    </div>
-  </footer>
+      <footer class="scene-footer">
+        <span>Homer Agent v1.0</span>
+        <span class="footer-sep">&middot;</span>
+        <span>Built with xAI Grok</span>
+        <span class="footer-sep">&middot;</span>
+        <span>&copy; 2026 Springfield Nuclear Power Plant</span>
+      </footer>
+    </section>
+
+  </main>
 
   <!-- TRANSITION OVERLAY -->
   <div class="transition-overlay" id="transition-overlay">

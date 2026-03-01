@@ -1,44 +1,75 @@
+#!/usr/bin/env node
 /**
- * Entry point — fire up Homer and start chatting.
- * Run with: npm run dev
+ * Homer Agent CLI — run from anywhere with npx homer-agent
+ *
+ *   homer-agent          → Terminal chat mode
+ *   homer-agent --serve   → Web dashboard (http://localhost:3000)
+ *   homer-agent --help    → Show usage
  */
 
-import * as readline from "readline";
-import { HomerAgent } from "./homer.js";
-import { validateConfig } from "./config.js";
+const args = process.argv.slice(2);
 
-const YELLOW = "\x1b[33m";
-const CYAN = "\x1b[36m";
-const DIM = "\x1b[2m";
-const RESET = "\x1b[0m";
-const BOLD = "\x1b[1m";
+if (args.includes("--help") || args.includes("-h")) {
+  printUsage();
+  process.exit(0);
+}
 
-function printBanner(): void {
+if (args.includes("--serve") || args.includes("-s")) {
+  startWeb();
+} else {
+  startCli();
+}
+
+function printUsage(): void {
+  const Y = "\x1b[33m";
+  const C = "\x1b[36m";
+  const D = "\x1b[2m";
+  const R = "\x1b[0m";
+  const B = "\x1b[1m";
+
+  console.log(`
+${Y}${B}  HOMER SIMPSON AI AGENT${R}
+${D}  "D'oh! I mean... Welcome to my brain"${R}
+
+  ${B}Usage:${R}
+    ${C}homer-agent${R}            Start terminal chat
+    ${C}homer-agent --serve${R}    Start web dashboard
+    ${C}homer-agent --help${R}     Show this help
+
+  ${B}Environment:${R}
+    ${C}XAI_API_KEY${R}            Your xAI API key ${D}(required)${R}
+    ${C}PORT${R}                   Web server port ${D}(default: 3000)${R}
+    ${C}MODEL${R}                  Model override ${D}(default: grok-3-mini-fast-beta)${R}
+
+  ${B}Get your free API key:${R}
+    ${C}https://console.x.ai/${R}
+  `);
+}
+
+async function startCli(): Promise<void> {
+  const readline = await import("readline");
+  const { HomerAgent } = await import("./homer.js");
+  const { validateConfig } = await import("./config.js");
+  validateConfig(true);
+
+  const YELLOW = "\x1b[33m";
+  const CYAN = "\x1b[36m";
+  const DIM = "\x1b[2m";
+  const RESET = "\x1b[0m";
+  const BOLD = "\x1b[1m";
+
   console.log(YELLOW);
   console.log(`  ╔══════════════════════════════════════════╗`);
   console.log(`  ║        ${BOLD}HOMER SIMPSON AI AGENT${RESET}${YELLOW}           ║`);
   console.log(`  ║    "D'oh! I mean... Welcome to my brain" ║`);
   console.log(`  ╚══════════════════════════════════════════╝`);
   console.log(RESET);
-  console.log(
-    `${DIM}  Type your message to talk to Homer.${RESET}`
-  );
-  console.log(
-    `${DIM}  Type "quit" or "exit" to leave Moe's Tavern.${RESET}`
-  );
-  console.log(
-    `${DIM}  Type "reset" to start a new conversation.${RESET}`
-  );
+  console.log(`${DIM}  Type your message to talk to Homer.${RESET}`);
+  console.log(`${DIM}  Type "quit" or "exit" to leave Moe's Tavern.${RESET}`);
+  console.log(`${DIM}  Type "reset" to start a new conversation.${RESET}`);
   console.log();
-}
-
-async function main(): Promise<void> {
-  validateConfig();
-  printBanner();
 
   const homer = new HomerAgent();
-
-  // Homer greets you
   console.log(`${YELLOW}Homer:${RESET} ${homer.greet()}`);
   console.log();
 
@@ -78,7 +109,9 @@ async function main(): Promise<void> {
       process.stdout.write(`\n${YELLOW}Homer:${RESET} `);
 
       try {
-        await homer.chat(trimmed);
+        await homer.chat(trimmed, {
+          onChunk: (text) => process.stdout.write(text),
+        });
       } catch (err: unknown) {
         const message = err instanceof Error ? err.message : String(err);
         console.error(`\n${DIM}[D'oh! Error: ${message}]${RESET}`);
@@ -92,4 +125,7 @@ async function main(): Promise<void> {
   prompt();
 }
 
-main();
+async function startWeb(): Promise<void> {
+  // Dynamically import server — it self-starts on import
+  await import("./server.js");
+}
