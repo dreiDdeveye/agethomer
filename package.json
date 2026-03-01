@@ -4,7 +4,7 @@
   "description": "Homer Simpson AI Agent — Talk to Homer in your terminal or browser. Powered by xAI Grok.",
   "type": "module",
   "bin": {
-    "homer-agent": "./dist/main.js"
+    "homer-agent": "dist/main.js"
   },
   "scripts": {
     "build": "tsc",

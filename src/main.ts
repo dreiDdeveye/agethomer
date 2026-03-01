@@ -37,12 +37,12 @@ ${D}  "D'oh! I mean... Welcome to my brain"${R}
     ${C}homer-agent --help${R}     Show this help
 
   ${B}Environment:${R}
-    ${C}XAI_API_KEY${R}            Your xAI API key ${D}(required)${R}
+    ${C}OPENAI_API_KEY${R}         Your OpenAI API key ${D}(required)${R}
     ${C}PORT${R}                   Web server port ${D}(default: 3000)${R}
-    ${C}MODEL${R}                  Model override ${D}(default: grok-3-mini-fast-beta)${R}
+    ${C}MODEL${R}                  Model override ${D}(default: gpt-4o-mini)${R}
 
-  ${B}Get your free API key:${R}
-    ${C}https://console.x.ai/${R}
+  ${B}Get your API key:${R}
+    ${C}https://platform.openai.com/api-keys${R}
   `);
 }
 

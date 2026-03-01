@@ -27,7 +27,10 @@
       "Bash(find:*)",
       "Bash(cd /c/Users/vicen/OneDrive/Desktop/agethomer && npx tsx src/main.ts --serve 2>&1)",
       "Bash(echo EXIT CODE: $?:*)",
-      "Bash(echo EXIT: $?:*)"
+      "Bash(echo EXIT: $?:*)",
+      "Bash(cd /c/Users/vicen/OneDrive/Desktop/agethomer && npm run build 2>&1 && npm link 2>&1)",
+      "Bash(homer-agent:*)",
+      "Bash(cd /c/Users/vicen/OneDrive/Desktop/agethomer && npm pkg fix 2>&1)"
     ]
   }
 }

@@ -1,13 +1,13 @@
 /**
  * Configuration for the Homer Simpson agent.
- * Uses xAI's Grok API (OpenAI-compatible).
+ * Uses the OpenAI API.
  */
 
 import "dotenv/config";
 
 export const CONFIG = {
-  /** Model to use (xAI Grok) */
-  model: process.env.MODEL || "grok-3-mini-fast-beta",
+  /** Model to use */
+  model: process.env.MODEL || "gpt-4o-mini",
 
   /** Max output tokens per response */
   maxTokens: 1024,
@@ -15,18 +15,18 @@ export const CONFIG = {
   /** Max agentic loop iterations (safety cap) */
   maxIterations: 10,
 
-  /** xAI API key from environment */
-  apiKey: process.env.XAI_API_KEY || "",
+  /** OpenAI API key from environment */
+  apiKey: process.env.OPENAI_API_KEY || "",
 
-  /** xAI API (OpenAI-compatible) */
-  baseUrl: "https://api.x.ai/v1",
+  /** OpenAI API */
+  baseUrl: "https://api.openai.com/v1",
 } as const;
 
 export function validateConfig(strict = false): void {
-  if (!CONFIG.apiKey || CONFIG.apiKey === "your-xai-api-key-here") {
+  if (!CONFIG.apiKey || CONFIG.apiKey === "your-openai-api-key-here") {
     const msg =
-      "\n  D'oh! Missing XAI_API_KEY in your .env file.\n" +
-      "  Get your key at: https://console.x.ai/\n";
+      "\n  D'oh! Missing OPENAI_API_KEY in your .env file.\n" +
+      "  Get your key at: https://platform.openai.com/api-keys\n";
     if (strict) {
       console.error(msg);
       process.exit(1);

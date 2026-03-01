@@ -1,6 +1,6 @@
 /**
  * The Homer Simpson agent — a real AI agent with tools and modes.
- * Uses xAI's Grok API via the OpenAI SDK.
+ * Uses the OpenAI API.
  */
 
 import OpenAI from "openai";
@@ -29,12 +29,12 @@ const NO_OP_CALLBACKS: AgentCallbacks = {
   onError: () => {},
 };
 
-/** Lazy-initialized OpenAI client pointed at xAI */
+/** Lazy-initialized OpenAI client */
 let _client: OpenAI | null = null;
 function getClient(): OpenAI {
   if (!_client) {
-    if (!CONFIG.apiKey || CONFIG.apiKey === "your-xai-api-key-here") {
-      throw new Error("Missing XAI_API_KEY — add it to your .env file. Get a free key at https://console.x.ai/");
+    if (!CONFIG.apiKey || CONFIG.apiKey === "your-openai-api-key-here") {
+      throw new Error("Missing OPENAI_API_KEY — add it to your .env file. Get your key at https://platform.openai.com/api-keys");
     }
     _client = new OpenAI({
       apiKey: CONFIG.apiKey,
@@ -96,7 +96,7 @@ export class HomerAgent {
         ...this.conversation.getMessages(),
       ];
 
-      // --- Call xAI Grok via OpenAI SDK ---
+      // --- Call OpenAI API ---
       const response = await getClient().chat.completions.create({
         model: CONFIG.model,
         messages: msgs,
